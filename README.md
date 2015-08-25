@@ -1,16 +1,14 @@
-<p align="center">
-  <img src="http://soundcloud-dl.com/soundcloud-download-logo.png" alt="Logo"/>
-</p>
-
 # SoundCloud Music Downloader
-## Python Version
-* FlyinGrub has decided to **change the language**, because the bash one started to be a little too messy...
-* He has choosen python cause it's nice, **simple**, efficient but more :
-    * There is a lot of tool made by the community (like **eyed3**) that can be imported very easily
-    * It allow an **easier installation**
-    * It will be fully **compatible** with Linux/Os x/Windows without hacking (like previously for os x)
+## Bash version deprecated. Main contributor moved to python.
+* I (*flyingrub*) have decided to **change the language**, because the bash one started to be a little too messy...
+* I have choosen python cause it's nice, **simple**, efficient but more :
+    * There is a lot of tool made by the community (like **mutagen**) that can be imported very easily.
+    * It allow an **easier installation**.
+    * It is **compatible** with Linux/Os x/Windows.
 * It already fixes all the issues of the bash version and add others features.
-* You can find it **[here](https://github.com/flyingrub/scdl)**
+* The bash version will no longer be updated.
+
+> https://github.com/flyingrub/scdl
 
 ## Changelog : MUST READ !
 * the .scdl.cfg has been changed a few time ago before reporting any issue be sure you have the latest one in your $HOME !!
