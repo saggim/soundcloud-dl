@@ -78,7 +78,7 @@ function fromjsontomp3 { # use the json to download info and mp3
     log 4 "https://api.soundcloud.com/tracks/$songID.json?client_id=$clientID"
     songinfo=$(CURL "https://api.soundcloud.com/tracks/$songID.json?client_id=$clientID" | tr "," "\n")
     title=$(printf "%s\n" "$songinfo" | grep '"title"' | cut -c 10- | rev | cut -c 2- | rev | tr '\/:*?|<>' '________' )
-    songurl=$(echo -e "$songinfo" | grep "stream_url" | cut -d '"' -f 4)
+    songurl=$(echo -e "$songinfo" | sort | grep "stream_url\|download_url" | head -1 | cut -d '"' -f 4)
     realsongurl=$(echo -e "$songurl?client_id=$clientID")
     artist=$(echo -e "$songinfo" | grep "username" | cut -d '"' -f 4)
     
@@ -120,7 +120,7 @@ function fromjsontomp3 { # use the json to download info and mp3
 	log 4 "File is in $account/$filename"
         log 1 "The song $filename has already been downloaded..."  && $cont 
     else
-		echo "[-] Downloading $title..."
+		echo "[-] Downloading $title...$realsongurl"
 		curl -# -L --user-agent 'Mozilla/5.0' -o "`echo -e "$filename"`" "$realsongurl"
 		settags "$artist" "$title" "$filename" "$genre" "$imageurl" "$setname"
 		echo -e "[i] Downloading of $filename finished"
@@ -128,14 +128,13 @@ function fromjsontomp3 { # use the json to download info and mp3
 		##Moving file
 		if [[ "$CreateFolders" == '1' ]]; then
 			if [[ -n "$setname" ]]; then
-				mkdir "$account" -v
-				mkdir "$account/$setname" -v
-				cp "$filename" "$account/$setname/$filename" -v -f
-				rm "$filename" -v -f
+                mkdir -v "$setname"
+                cp -v -f "$filename" "$setname/$filename"
+                rm -v -f "$filename"
 			else
-			    	mkdir "$account" -v
-				cp "$filename" "$account/$filename" -v -f
-				rm "$filename" -v -f
+                mkdir -v "$account" 
+				cp -v -f "$filename" "$account/$filename" 
+				rm -v -f "$filename" 
 			fi
 		fi
     fi
